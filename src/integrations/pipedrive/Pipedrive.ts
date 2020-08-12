@@ -4,14 +4,14 @@ import { IGetDealsResponse } from "./types";
 
 const { BASE_URL_PIPEDRIVE, API_KEY_PIPEDRIVE } = process.env;
 
-export class Pipedrive extends BaseIntegration {
+export abstract class Pipedrive extends BaseIntegration {
   /**
    * Create Pipedrive axios client
    *
    * @memberof Pipedrive
    */
-  createPipedriveAxiosClient() {
-    return this.createAxiosClient(BASE_URL_PIPEDRIVE!);
+  static createPipedriveAxiosClient() {
+    return BaseIntegration.createAxiosClient(BASE_URL_PIPEDRIVE!);
   }
 
   /**
@@ -20,7 +20,7 @@ export class Pipedrive extends BaseIntegration {
    * @returns {Promise<IGetDealsResponse>}
    * @memberof Pipedrive
    */
-  async getAllDeals(): Promise<IGetDealsResponse> {
+  static async getAllDeals(): Promise<IGetDealsResponse> {
     const endpoint = `/deals`;
 
     try {

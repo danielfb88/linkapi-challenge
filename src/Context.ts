@@ -43,8 +43,8 @@ export class Context {
         movies: connection.getCustomRepository(MovieRepository),
       },
       integrations: {
-        bling: new Bling().createBlingAxiosClient(),
-        pipedrive: new Pipedrive().createPipedriveAxiosClient(),
+        bling: Bling.createBlingAxiosClient(),
+        pipedrive: Pipedrive.createPipedriveAxiosClient(),
       },
     };
   }
