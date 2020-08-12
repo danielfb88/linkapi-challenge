@@ -23,7 +23,7 @@ interface IOrg {
   name: string;
   people_count: number;
   owner_id: number;
-  address: object;
+  address: string;
   active_flag: boolean;
   cc_email: string;
   value: number;

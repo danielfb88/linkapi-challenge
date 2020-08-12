@@ -1,4 +1,5 @@
 import Bling from "../integrations/bling/Bling";
+import Pipedrive from "../integrations/pipedrive/Pipedrive";
 
 class OrderService {
   /**
@@ -7,73 +8,28 @@ class OrderService {
    * @memberof OrderService
    */
   async importOrdersToBlingAndPersist() {
-    // const wonDealsData = (await Pipedrive.getDealsByStatus("won")).data;
+    const wonDealsData = (await Pipedrive.getDealsByStatus("won")).data;
 
-    const blingResult = await Bling.createPedido({
-      cliente: {
-        bairro: "ascdef",
-        cep: "ascdef",
-        cidade: "ascdef",
-        complemento: "ascdef",
-        cpf_cnpj: "ascdef",
-        email: "ascdef",
-        endereco: "ascdef",
-        fone: "ascdef",
-        ie_rg: "ascdef",
-        nome: "ascdef",
-        numero: "ascdef",
-        tipoPessoa: "ascdef",
-        uf: "ascdef",
-      },
-      itens: [
-        {
-          item: {
-            codigo: "ascdef",
-            descricao: "ascdef",
-            qtde: "ascdef",
-            un: "ascdef",
-            vlr_unit: "ascdef",
-          },
-          obs: { obs_internas: "ascdef" },
-          parcelas: [
-            {
-              parcela: {
-                data: "ascdef",
-                obs: "ascdef",
-                vlr: "ascdef",
-              },
-            },
-          ],
-          vlr_desconto: "0",
-          vlr_frete: "0",
+    for (const wonDeal of wonDealsData) {
+      await Bling.createPedido({
+        cliente: {
+          email: wonDeal.person_id.email[0].value,
+          endereco: wonDeal.org_id.address,
+          fone: wonDeal.person_id.phone[0].value,
+          nome: wonDeal.person_id.name,
         },
-      ],
-      transporte: {
-        dados_etiqueta: {
-          bairro: "ascdef",
-          cep: "ascdef",
-          complemento: "ascdef",
-          endereco: "ascdef",
-          municipio: "ascdef",
-          nome: "ascdef",
-          numero: "ascdef",
-          uf: "ascdef",
-        },
-        servico_correios: "ascdef",
-        tipo_frete: "ascdef",
-        transportadora: "ascdef",
-        volumes: [
+        itens: [
           {
-            volume: {
-              codigoRastreamento: "ascdef",
-              servico: "ascdef",
+            item: {
+              codigo: wonDeal.stage_id.toString(),
+              descricao: wonDeal.title,
+              vlr_unit: wonDeal.value.toString(),
             },
           },
         ],
-      },
-    });
-
-    console.log("blingResult :>> ", blingResult);
+        vendedor: wonDeal.user_id.name,
+      });
+    }
   }
 }
 export default new OrderService();
