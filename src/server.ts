@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
 import App from "./App";
 import { Context } from "./Context";
-import { Pipedrive } from "./integrations/pipedrive/Pipedrive";
+import Pipedrive from "./integrations/pipedrive/Pipedrive";
 
 process.env.TZ = "UTC";
 

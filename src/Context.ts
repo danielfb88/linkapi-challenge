@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
 import * as express from "express";
 import { Connection } from "typeorm";
-import { Bling } from "./integrations/bling/Bling";
-import { Pipedrive } from "./integrations/pipedrive/Pipedrive";
+import Bling from "./integrations/bling/Bling";
+import Pipedrive from "./integrations/pipedrive/Pipedrive";
 import { MovieRepository } from "./repositories";
 
 export interface IContext {

@@ -11,7 +11,7 @@ export abstract class BaseIntegration {
    * @returns
    * @memberof BaseIntegration
    */
-  static createAxiosClient(baseURL: string) {
+  protected createAxiosClient(baseURL: string) {
     const axiosInstance = axios.create({
       baseURL,
       data: {
