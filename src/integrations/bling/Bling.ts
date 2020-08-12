@@ -21,13 +21,15 @@ class Bling extends BaseIntegration {
    * @returns {Promise<IGetDealsResponse>}
    * @memberof Bling
    */
-  async createOrder(pedido: IPedido): Promise<IPostPedidoResponse> {
+  async createPedido(pedido: IPedido): Promise<IPostPedidoResponse> {
     const endpoint = `/pedido/json`;
 
     try {
-      const result = await Context.getInstance().integrations.pipedrive.post<IPostPedidoResponse>(endpoint, {
-        params: { apikey: API_KEY_BLING, xml: js2xmlparser.parse("pedido", pedido) },
-      });
+      const result = await Context.getInstance().integrations.bling.post<IPostPedidoResponse>(
+        endpoint,
+        { xml: js2xmlparser.parse("pedido", pedido) },
+        { params: { apikey: API_KEY_BLING, xml: js2xmlparser.parse("pedido", pedido) } },
+      );
 
       return result.data;
     } catch (err) {

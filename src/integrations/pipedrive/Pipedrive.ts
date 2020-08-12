@@ -1,5 +1,6 @@
 import { Context } from "../../Context";
 import { BaseIntegration } from "../BaseIntegration";
+import { StatusDeal } from "../bling/types";
 import { IGetDealsResponse } from "./types";
 
 const { BASE_URL_PIPEDRIVE, API_KEY_PIPEDRIVE } = process.env;
@@ -15,13 +16,13 @@ class Pipedrive extends BaseIntegration {
   }
 
   /**
-   * Get dll deals
+   * Get all deals
    *
    * @returns {Promise<IGetDealsResponse>}
    * @memberof Pipedrive
    */
-  async getAllDeals(): Promise<IGetDealsResponse> {
-    const endpoint = `/deals`;
+  async getDealsByStatus(status: StatusDeal): Promise<IGetDealsResponse> {
+    const endpoint = `/deals?status=${status}`;
 
     try {
       const result = await Context.getInstance().integrations.pipedrive.get<IGetDealsResponse>(endpoint, {

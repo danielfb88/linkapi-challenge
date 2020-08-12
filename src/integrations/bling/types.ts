@@ -1,3 +1,5 @@
+export type StatusDeal = "won" | "open" | "lost" | "deleted" | "all_not_deleted";
+
 export interface IPostPedidoResponse {
   retorno: {
     pedidos: Array<{
