@@ -1,4 +1,5 @@
 import { Application } from "express";
+import dealRoute from "./routes/DealRoute";
 
 class Routes {
   /**
@@ -8,7 +9,9 @@ class Routes {
    * @memberof Routes
    */
   initRoutes(app: Application): void {
-    console.log("Routes here");
+    app.route("/api/deals").get((req, res) => {
+      dealRoute.getDeals(req, res);
+    });
   }
 }
 
