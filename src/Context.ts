@@ -1,7 +1,8 @@
 import { AxiosInstance } from "axios";
 import * as express from "express";
 import { Connection } from "typeorm";
-import { createPipedriveAxiosClient } from "./integrations/pipedrive";
+import { Bling } from "./integrations/bling/Bling";
+import { Pipedrive } from "./integrations/pipedrive/Pipedrive";
 import { MovieRepository } from "./repositories";
 
 export interface IContext {
@@ -42,8 +43,8 @@ export class Context {
         movies: connection.getCustomRepository(MovieRepository),
       },
       integrations: {
-        bling: createPipedriveAxiosClient(), // TODO
-        pipedrive: createPipedriveAxiosClient(),
+        bling: new Bling().createBlingAxiosClient(),
+        pipedrive: new Pipedrive().createPipedriveAxiosClient(),
       },
     };
   }
