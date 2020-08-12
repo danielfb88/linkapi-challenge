@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
 import App from "./App";
 import { Context } from "./Context";
-import Pipedrive from "./integrations/pipedrive/Pipedrive";
+import OrderService from "./services/OrderService";
 
 process.env.TZ = "UTC";
 
@@ -19,9 +19,7 @@ getConnectionOptions()
   .then(async connection => {
     Context.createContext({ app: App, connection });
 
-    const result = await Pipedrive.getAllDeals();
-
-    console.log("result :>> ", result);
+    await OrderService.importOrdersToBlingAndPersist();
 
     const port = process.env.PORT ?? "8000";
 

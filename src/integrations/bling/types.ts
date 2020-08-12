@@ -1,4 +1,4 @@
-export interface IPostOrderResponse {
+export interface IPostPedidoResponse {
   retorno: {
     pedidos: Array<{
       pedido: {
