@@ -1,5 +1,7 @@
+import { Context } from "../Context";
 import Bling from "../integrations/bling/Bling";
 import Pipedrive from "../integrations/pipedrive/Pipedrive";
+import { IDataDeal } from "../integrations/pipedrive/types";
 
 class OrderService {
   /**
@@ -29,7 +31,24 @@ class OrderService {
         ],
         vendedor: wonDeal.user_id.name,
       });
+
+      await this.saveDeal(wonDeal);
     }
+  }
+
+  /**
+   * Save Deal into database
+   *
+   * @param {IDataDeal} dataDeal
+   * @memberof OrderService
+   */
+  async saveDeal(dataDeal: IDataDeal) {
+    await Context.getInstance().db.deals.save({
+      amount: dataDeal.weighted_value,
+      clientName: dataDeal.person_name,
+      title: dataDeal.title,
+      userName: dataDeal.user_id.name,
+    });
   }
 }
 export default new OrderService();

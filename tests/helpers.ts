@@ -5,7 +5,7 @@ import { Connection, createConnection, getConnectionOptions } from "typeorm";
 import { MongoConnectionOptions } from "typeorm/driver/mongodb/MongoConnectionOptions";
 import App from "../src/App";
 import { Context, IContext } from "../src/Context";
-import { MovieRepository } from "../src/repositories";
+import { DealRepository } from "../src/repositories";
 
 process.env.TZ = "UTC";
 
@@ -53,7 +53,7 @@ export function makeCtx(ctx: DeepPartial<IContext>) {
     captureException: () => null,
     db: {
       connection,
-      movies: connection.getCustomRepository(MovieRepository),
+      movies: connection.getCustomRepository(DealRepository),
     },
     ...ctx,
   } as IContext;

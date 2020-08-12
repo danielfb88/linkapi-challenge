@@ -1,1 +1,1 @@
-export * from "./MovieRepository";
+export * from "./DealRepository";

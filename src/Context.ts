@@ -3,14 +3,14 @@ import * as express from "express";
 import { Connection } from "typeorm";
 import Bling from "./integrations/bling/Bling";
 import Pipedrive from "./integrations/pipedrive/Pipedrive";
-import { MovieRepository } from "./repositories";
+import { DealRepository } from "./repositories";
 
 export interface IContext {
   captureException(error: Error): void;
   app: express.Application;
   db: {
     connection: Connection;
-    movies: MovieRepository;
+    deals: DealRepository;
   };
   integrations: {
     pipedrive: AxiosInstance;
@@ -40,7 +40,7 @@ export class Context {
       captureException: () => null,
       db: {
         connection,
-        movies: connection.getCustomRepository(MovieRepository),
+        deals: connection.getCustomRepository(DealRepository),
       },
       integrations: {
         bling: Bling.createBlingAxiosClient(),
