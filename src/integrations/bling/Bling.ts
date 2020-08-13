@@ -28,7 +28,7 @@ class Bling extends BaseIntegration {
       const result = await Context.getInstance().integrations.bling.post<IPostPedidoResponse>(
         endpoint,
         { xml: js2xmlparser.parse("pedido", pedido) },
-        { params: { apikey: API_KEY_BLING, xml: js2xmlparser.parse("pedido", pedido) } },
+        { params: { apikey: API_KEY_BLING } },
       );
 
       return result.data;
